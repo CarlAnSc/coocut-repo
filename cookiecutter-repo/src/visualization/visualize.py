@@ -3,13 +3,15 @@ import sys
 import torch
 import click
 from torch import nn
+import numpy as np
+import matplotlib.pyplot as plt
+
 
 from torch.utils.data import TensorDataset
 from torch.optim import Adam
 from sklearn.manifold import TSNE
 
-
-from model import MyAwesomeModel
+from src.models.model import MyAwesomeModel
 
 
 @click.group()
@@ -35,22 +37,29 @@ def visualize(model_checkpoint):
     testloader = torch.utils.data.DataLoader(dataset, batch_size=64, shuffle=True)
     model.eval()
 
-    tsne = TSNE(n_components=2)
-
+    data_for_plot = []
+    label_for_plot = []
     with torch.no_grad():
         for images, labels in testloader:
+
             probs, last_linear = model.forward(images)
-            print(type(last_linear))
-            #top_p, top_class = probs.topk(1, dim=1)
-            #equals = top_class == labels.view(*top_class.shape)
+            data_for_plot.append(last_linear.numpy())
+            label_for_plot.append(labels.numpy())
 
-            #accuracy += torch.mean(equals.type(torch.FloatTensor)).item()
+    data_for_plot = np.concatenate(data_for_plot)
+    label_for_plot = np.concatenate(label_for_plot)
 
-    #accuracy = accuracy / len(testloader)
-    #print(f'Accuracy: {accuracy * 100}%')
+    print('Running TSNE-transform:')
+    tsne = TSNE(n_components=2)
+    transData = tsne.fit_transform(data_for_plot)
 
+    print('Sending plot to reports/figures/TSNE-visualization')
+    plt.figure()
+    plt.scatter(transData[:,0],transData[:,1],c=label_for_plot)
+    plt.savefig('reports/figures/TSNE-visualization.png')
+    
 
-cli.add_command(evaluate)
+cli.add_command(visualize)
 
 
 if __name__ == "__main__":

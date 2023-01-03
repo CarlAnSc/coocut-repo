@@ -9,6 +9,7 @@ coocutp1
 	(saves into model/checkpoint.pth)
 4. Evaluate your model with: 	python src/models/predict_model.py evaluate models/checkpoint.pth
 	
+5. Make plot of last layer:     python src/visualization/visualize.py visualize models/checkpoint.pth
 
 
 A short description of the project.
