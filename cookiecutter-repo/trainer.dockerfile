@@ -13,8 +13,10 @@ COPY src/ src/
 COPY data/ data/
 COPY reports/figures/ reports/figures/
 COPY models/ models/
+# New below
+COPY config/ config/
 
 WORKDIR /
 RUN pip install -r requirements.txt --no-cache-dir
 
-ENTRYPOINT ["python", "-u", "src/models/train_model.py", "train"]
+ENTRYPOINT ["python", "-u", "src/models/train_model.py"]
