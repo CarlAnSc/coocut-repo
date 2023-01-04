@@ -1,28 +1,31 @@
-import argparse
-import sys
-
-import torch
 import click
-from torch import nn
 import matplotlib.pyplot as plt
-
-from torch.utils.data import TensorDataset
-from torch.optim import Adam
-
+import torch
 from model import MyAwesomeModel
+from torch import nn
+from torch.optim import Adam
+from torch.utils.data import TensorDataset
+from omegaconf import OmegaConf
+import hydra
 
-@click.group()
-def cli():
-    pass
+#@click.group()
+#def cli():
+#    pass
 
 
-@click.command()
-@click.option("--lr", default=1e-3, help='learning rate to use for training')
-def train(lr):
+#@click.command()
+#@click.option("--lr", default=1e-3, help='learning rate to use for training')
+
+@hydra.main(config_path='config', config_name="config.yaml", version_base=None)
+
+
+def train(config):
+    """Train the model on the training data and return the obtained weights"""
+    print(f"configuration: \n {OmegaConf.to_yaml(config)}")
+    hparams = config['hyperparameters']
     print("Training day and night")
-    print(lr)
+    #print(lr)
 
-    # TODO: Implement training loop here
     model = MyAwesomeModel()
     train_set = torch.load('data/processed/train.data')
 
@@ -33,9 +36,9 @@ def train(lr):
     trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
 
     criterion = nn.NLLLoss()
-    optimizer = Adam(model.parameters(), lr=lr)
+    optimizer = Adam(model.parameters(), lr=hparams["learning_rate"])
 
-    epochs = 3
+    epochs = hparams["n_epochs"]
     loss_for_plot = []
     for e in range(epochs):
         running_loss = 0
@@ -61,14 +64,14 @@ def train(lr):
     print('Plot is saved as reports/figures/trainloss.png')
 
 
-cli.add_command(train)
+#cli.add_command(train)
 
 #@click.command()
 #@click.argument("model_checkpoint")
 
 
 if __name__ == "__main__":
-    cli()
+    train()
     # path= /Users/carlschmidt/Desktop/dtu_mlops/s1_development_environment/exercise_files/final_exercise
     # python main.py train --lr=0.001
     # python main.py evaluate checkpoint.pth

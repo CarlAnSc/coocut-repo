@@ -1,14 +1,12 @@
 import argparse
 import sys
 
-import torch
 import click
-from torch import nn
-
-from torch.utils.data import TensorDataset
-from torch.optim import Adam
-
+import torch
 from model import MyAwesomeModel
+from torch import nn
+from torch.optim import Adam
+from torch.utils.data import TensorDataset
 
 
 @click.group()

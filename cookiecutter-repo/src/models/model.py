@@ -1,6 +1,6 @@
-from torch import nn
-from torch import optim
 import torch.nn.functional as F
+from torch import nn, optim
+
 
 class MyAwesomeModel(nn.Module):
     def __init__(self):
@@ -26,5 +26,5 @@ class MyAwesomeModel(nn.Module):
         # output so no dropout here
         x = F.log_softmax(self.fc4(x), dim=1)
 
-        return x, last_linear       # return that as well.
+        return x, last_linear 
 

@@ -5,7 +5,7 @@ coocutp1
 
 2. Make the processed data: 	src/data/make_dataset.py data/raw data/processed
 
-3. Train the model with: 	python src/models/train_model.py train --lr 0.001         
+3. Train the model with: 	python src/models/train_model.py          
 	(saves into model/checkpoint.pth)
 4. Evaluate your model with: 	python src/models/predict_model.py evaluate models/checkpoint.pth
 	

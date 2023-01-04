@@ -1,12 +1,13 @@
 ## -*- coding: utf-8 -*-
-import click
 import logging
 from pathlib import Path
-from dotenv import find_dotenv, load_dotenv
+
+import click
 import numpy as np
-from torchvision import transforms
-from torch.utils.data import TensorDataset
 import torch
+from dotenv import find_dotenv, load_dotenv
+from torch.utils.data import TensorDataset
+from torchvision import transforms
 
 
 @click.command()

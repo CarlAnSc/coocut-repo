@@ -21,10 +21,10 @@ def cli():
 @click.command()
 @click.argument("model_checkpoint")
 def visualize(model_checkpoint):
-    print("Visualizing final data features found by model")
+    """Use model final layer and TSME to transform training data and returns a plot"""
     print(model_checkpoint)
+    print("Visualizing final data features found by model")
 
-    # TODO: Implement evaluation logic here
     state_dict = torch.load(model_checkpoint)
     model = MyAwesomeModel()
     model.load_state_dict(state_dict)
