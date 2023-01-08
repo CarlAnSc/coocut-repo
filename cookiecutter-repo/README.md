@@ -3,7 +3,7 @@ coocutp1
 
 1. Cd your way into the cookiecutter-repo (remember to activate mlops1)
 
-2. Make the processed data: 	src/data/make_dataset.py data/raw data/processed
+2. Make the processed data: 	python src/data/make_dataset.py data/raw data/processed
 
 3. Train the model with: 	python src/models/train_model.py          
 	(saves into model/checkpoint.pth)

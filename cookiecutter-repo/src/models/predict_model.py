@@ -26,10 +26,10 @@ def evaluate(model_checkpoint):
 
 
     test_set = torch.load('data/processed/test.data')
-    testset = TensorDataset(test_set['images'], test_set['labels'])
+    #testset = TensorDataset(test_set['images'], test_set['labels'])
 
     # Download and load the testing data
-    testloader = torch.utils.data.DataLoader(testset, batch_size=64, shuffle=True)
+    testloader = torch.utils.data.DataLoader(test_set, batch_size=64, shuffle=True)
     model.eval()
 
     accuracy = 0

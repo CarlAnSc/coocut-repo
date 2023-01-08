@@ -30,10 +30,10 @@ def train(config):
     train_set = torch.load('data/processed/train.data')
 
 
-    trainset = TensorDataset(train_set['images'], train_set['labels'])
+    #trainset = TensorDataset(train_set['images'], train_set['labels'])
 
     # Download and load the training data
-    trainloader = torch.utils.data.DataLoader(trainset, batch_size=64, shuffle=True)
+    trainloader = torch.utils.data.DataLoader(train_set, batch_size=64, shuffle=True)
 
     criterion = nn.NLLLoss()
     optimizer = Adam(model.parameters(), lr=hparams["learning_rate"])
