@@ -7,6 +7,7 @@ from torch.optim import Adam
 from torch.utils.data import TensorDataset
 from omegaconf import OmegaConf
 import hydra
+from src.data.loaddata import load_data_func
 
 #@click.group()
 #def cli():
@@ -24,11 +25,12 @@ def train(config):
     print(f"configuration: \n {OmegaConf.to_yaml(config)}")
     hparams = config['hyperparameters']
     print("Training day and night")
-    #print(lr)
 
     model = MyAwesomeModel()
-    train_set = torch.load('data/processed/train.data')
+    train_set, _ = load_data_func()
 
+    if train_set[0][0].shape != torch.Size([784]):
+        ValueError('Expected the input dimensions to be a torchTensor of size 784')
 
     #trainset = TensorDataset(train_set['images'], train_set['labels'])
 
@@ -39,10 +41,12 @@ def train(config):
     optimizer = Adam(model.parameters(), lr=hparams["learning_rate"])
 
     epochs = hparams["n_epochs"]
+
+
     loss_for_plot = []
     for e in range(epochs):
         running_loss = 0
-        print(f'Beginning the #',e, 'epoch')
+        print(f'Beginning the #', e, 'epoch')
         for images, labels in trainloader:
             optimizer.zero_grad()
 

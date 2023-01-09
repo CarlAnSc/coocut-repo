@@ -1,5 +1,6 @@
 import torch.nn.functional as F
 from torch import nn, optim
+import torch
 
 
 class MyAwesomeModel(nn.Module):
@@ -16,6 +17,9 @@ class MyAwesomeModel(nn.Module):
     def forward(self, x):
         # make sure input tensor is flattened
         x = x.view(x.shape[0], -1)
+
+        #if x.shape != torch.Size([784]):
+        #    raise ValueError('Expected the input dimensions to be a torchTensor of size 784')
 
         # Now with dropout
         x = self.dropout(F.relu(self.fc1(x)))
