@@ -1,0 +1,3 @@
+hyperparameters:
+  n_epochs: 3
+  learning_rate: 0.0001
