@@ -17,10 +17,11 @@ jobs:
 
 
     - uses: iterative/setup-dvc@v1
+
     - name: Get data
       run: dvc pull
       env:
-      GDRIVE_CREDENTIALS_DATA: $
+        GDRIVE_CREDENTIALS_DATA: $
 
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
